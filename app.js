@@ -1,6 +1,6 @@
 let runningTotal = '';
 let secondOperand = '';
-let operator = null;
+let currentOperator = null;
 let resetScreen = false;
 
 const display = document.getElementById("display-text");
@@ -19,6 +19,9 @@ numberButtons.forEach((button) =>
   button.addEventListener('click', () => appendNum(button.textContent))
 )
 
+operationButtons.forEach((button) =>
+  button.addEventListener('click', () => setOperator(button.textContent))
+)
 
 function refreshScreen() {
   display.textContent = "";
@@ -29,7 +32,7 @@ function clear() {
   display.textContent = '0';
   runningTotal = '';
   secondOperand = '';
-  operator = null;
+  currentOperator = null;
 }
 
 function appendNum(num) {
@@ -49,4 +52,13 @@ function appendPoint() {
 
 function deleteNum() {
   display.textContent = display.textContent.toString().slice(0, -1)
+}
+
+function setOperator(operator) {
+  if (currentOperator !== null) {
+    evaluate();
+  }
+  runningTotal = display.textContent;
+  currentOperator = operator;
+  resetScreen = true;
 }
