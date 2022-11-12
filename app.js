@@ -12,6 +12,7 @@ const clearButton = document.getElementById("clear-btn");
 const deleteButton = document.getElementById("delete-btn");
 
 clearButton.addEventListener('click', clear);
+deleteButton.addEventListener('click', deleteNum)
 
 numberButtons.forEach((button) =>
   button.addEventListener('click', () => appendNum(button.textContent))
@@ -35,4 +36,8 @@ function appendNum(num) {
     refreshScreen()
   }
   display.textContent += num;
+}
+
+function deleteNum() {
+  display.textContent = display.textContent.toString().slice(0, -1)
 }
