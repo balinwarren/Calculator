@@ -14,6 +14,7 @@ const deleteButton = document.getElementById("delete-btn");
 clearButton.addEventListener('click', clear);
 deleteButton.addEventListener('click', deleteNum);
 decimalButton.addEventListener('click', appendPoint);
+equalsButton.addEventListener('click', evaluate);
 
 numberButtons.forEach((button) =>
   button.addEventListener('click', () => appendNum(button.textContent))
@@ -61,4 +62,43 @@ function setOperator(operator) {
   runningTotal = display.textContent;
   currentOperator = operator;
   resetScreen = true;
+}
+
+function evaluate() {
+  if (currentOperator === null || resetScreen) {
+    return;
+  }
+
+  if (currentOperator === "÷" && display.textContent === '0') {
+    alert("You can't divide by 0!");
+    return;
+  }
+
+  secondOperand = display.textContent;
+  display.textContent = round(operate(runningTotal, secondOperand, currentOperator));
+  currentOperator = null;
+}
+
+function round(number) {
+  return Math.round(number * 1000) / 1000;
+}
+
+function operate(num1, num2, operator) {
+  num1 = Number(num1);
+  num2 = Number(num2);
+  switch(operator){
+    case '+':
+      return num1 + num2;
+    case '-':
+      return num1 - num2;
+    case 'x':
+      return num1 * num2;
+    case '÷':
+      if (num2 === 0) {
+        return null;
+      }
+      return num1 / num2;
+    default:
+      return null;
+  }
 }
