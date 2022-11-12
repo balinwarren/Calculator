@@ -11,6 +11,7 @@ const decimalButton = document.getElementById("point-btn");
 const clearButton = document.getElementById("clear-btn");
 const deleteButton = document.getElementById("delete-btn");
 
+window.addEventListener('keydown', handleKeyPress);
 clearButton.addEventListener('click', clear);
 deleteButton.addEventListener('click', deleteNum);
 decimalButton.addEventListener('click', appendPoint);
@@ -100,5 +101,35 @@ function operate(num1, num2, operator) {
       return num1 / num2;
     default:
       return null;
+  }
+}
+
+function handleKeyPress(x) {
+  if (x.key >= 0 && x.key <= 9){
+    appendNum(x.key);
+  }
+  if (x.key === '.') {
+    appendPoint();
+  }
+  if(x.key === "Backspace") {
+    deleteNum();
+  }
+  if (x.key === '=' || x.key === "Enter") {
+    evaluate();
+  }
+  if (x.key === "Esc") {
+    clear();
+  }
+  if (x.key === '+' || x.key === '-' || x.key === '*' || x.key === '/') {
+    switch(x.key) {
+      case "+":
+        setOperator("+");
+      case '-':
+        setOperator("-");
+      case "*":
+        setOperator("x");
+      case "/":
+        setOperator("÷");
+    } 
   }
 }
