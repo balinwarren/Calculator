@@ -121,15 +121,13 @@ function handleKeyPress(x) {
     clear();
   }
   if (x.key === '+' || x.key === '-' || x.key === '*' || x.key === '/') {
-    switch(x.key) {
-      case "+":
-        setOperator("+");
-      case '-':
-        setOperator("-");
-      case "*":
-        setOperator("x");
-      case "/":
-        setOperator("÷");
-    } 
+    setOperator(convertOperator(x.key));
   }
+}
+
+function convertOperator(keyboardOperator) {
+  if (keyboardOperator === '/') return '÷'
+  if (keyboardOperator === '*') return 'x'
+  if (keyboardOperator === '-') return '-'
+  if (keyboardOperator === '+') return '+'
 }
